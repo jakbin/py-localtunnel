@@ -24,4 +24,8 @@ pip3 install py-localtunnel
 pylt port 8080
 ```
 
-Special thanks for chatgpt.
+## Contributing
+
+Whether reporting bugs, discussing improvements and new ideas or writing extensions: Contributions to pysonDB are welcome!
+
+Special thanks to chatgpt.
