@@ -1,6 +1,6 @@
 # py-localtunnel
 
-localtunnel alternative in python.
+localtunnel client in python.
 
  [![PyPI version](https://badge.fury.io/py/py-localtunnel.svg)](https://pypi.org/project/py-localtunnel/)
  [![Downloads](https://pepy.tech/badge/py-localtunnel/month)](https://pepy.tech/project/py-localtunnel)
@@ -22,6 +22,10 @@ pip3 install py-localtunnel
 ## Usage
 ```sh
 pylt port 8080
+```
+
+```sh
+pylt port 8080 -s your_custom_subdomain
 ```
 
 ## Contributing
