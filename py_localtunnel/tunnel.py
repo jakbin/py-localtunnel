@@ -106,7 +106,7 @@ class Tunnel:
 
     def stop_tunnel(self) -> None:
         if Debug:
-            print(f"Stop tunnel for localPort[{self.local_port}]!")
+            print(f" Info: Stop tunnel for localPort[{self.local_port}]!")
         self.cmd_chan.put('STOP')
         for tunnel_conn in self.tunnel_conns:
             tunnel_conn.stop_tunnel()
@@ -128,4 +128,5 @@ class Tunnel:
             with socket.create_connection(('localhost', self.local_port)) as sock:
                 pass
         except ConnectionRefusedError:
-            raise Exception('Cannot connect to local port')        
+            print(' Error: Cannot connect to local port')   
+            os._exit(0)   

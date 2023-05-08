@@ -28,7 +28,7 @@ setuptools.setup(
     packages=["py_localtunnel"],
     entry_points={
         "console_scripts":[
-            "pylt = py_localtunnel.cli:main"
+            "pylt = py_localtunnel.cli:main",
             "lt = py_localtunnel.cli:main"
         ]
     }

@@ -1,11 +1,12 @@
 import argparse
-from py_localtunnel.tunnel import Tunnel
+from py_localtunnel.lt import run_localtunnel
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 package_name = "pylt"
 
 example_uses = '''example:
-   pylt port {port_number}'''
+   pylt port {port_number}
+   pylt port {port_number} -s {your_custom_subdomain}'''
 
 def main(argv = None):
     parser = argparse.ArgumentParser(prog=package_name, description="localtunnel alternative in python", epilog=example_uses, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -20,16 +21,7 @@ def main(argv = None):
     args = parser.parse_args(argv)
 
     if args.command == "port":
-        t = Tunnel()
-        url = t.get_url(args.subdomain)
-        print(f" your url is: {url}")
-        try:
-            t.create_tunnel(args.port)
-        except KeyboardInterrupt:
-            print("KeyboardInterrupt: stopping tunnel")
-
-        t.stop_tunnel()
-
+        run_localtunnel(args.port, args.subdomain)
     elif args.version:
         return print(__version__)
     else:
