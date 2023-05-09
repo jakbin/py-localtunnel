@@ -28,6 +28,9 @@ pylt port 8080
 pylt port 8080 -s your_custom_subdomain
 ```
 
+## Tutorial
+[Watch Here](https://youtu.be/AT8zsjdtYL8)
+
 ## Contributing
 
 Whether reporting bugs, discussing improvements and new ideas or writing extensions: Contributions to pysonDB are welcome!
