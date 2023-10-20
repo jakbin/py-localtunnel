@@ -33,7 +33,7 @@ class TunnelConn:
             thread_2.join()
         except Exception as e:
             if Debug:
-                sys.stdout.write(f"Stop copy data! error=[{e}]")
+                sys.stdout.write(f"Stop copy data! error=[{e}]\n")
                 sys.stdout.flush()
         finally:
             if self.remote_conn:
@@ -78,7 +78,7 @@ class TunnelConn:
                 destination.sendall(data)
         except Exception as ex:
             if Debug:
-                sys.stdout.write(f"Stop copy data! error=[{ex}]")
+                sys.stdout.write(f"Stop copy data! error=[{ex}]\n")
                 sys.stdout.flush()
             e = ex  # assign the exception to e
         finally:
@@ -109,7 +109,7 @@ class Tunnel:
 
     def stop_tunnel(self) -> None:
         if Debug:
-            sys.stdout.write(f" Info: Stop tunnel for localPort[{self.local_port}]!")
+            sys.stdout.write(f" Info: Stop tunnel for localPort[{self.local_port}]!\n")
             sys.stdout.flush()
         self.cmd_chan.put('STOP')
         for tunnel_conn in self.tunnel_conns:
@@ -132,6 +132,5 @@ class Tunnel:
             with socket.create_connection(('localhost', self.local_port)) as sock:
                 pass
         except ConnectionRefusedError:
-            sys.stderr.write(' Error: Cannot connect to local port')   
-            sys.stderr.flush()
+            sys.stderr.write(' Error: Cannot connect to local port\n')
             os._exit(0)   
