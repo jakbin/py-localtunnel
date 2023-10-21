@@ -33,6 +33,6 @@ pylt port 8080 -s your_custom_subdomain
 
 ## Contributing
 
-Whether reporting bugs, discussing improvements and new ideas or writing extensions: Contributions to pysonDB are welcome!
+Whether reporting bugs, discussing improvements and new ideas : Contributions to py-localtunnel are welcome!
 
 Special thanks to chatgpt.
