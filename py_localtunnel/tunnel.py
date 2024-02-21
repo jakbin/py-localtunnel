@@ -10,10 +10,11 @@ LOCAL_TUNNEL_SERVER = "http://localtunnel.me/"
 Debug = True
 
 class TunnelConn:
-    def __init__(self, remote_host: str, remote_port: int, local_port: int):
+    def __init__(self, remote_host: str, remote_port: int, local_port: int, local_host: str):
         self.remote_host = remote_host
         self.remote_port = remote_port
         self.local_port = local_port
+        self.local_host = local_host
         self.remote_conn = None
         self.local_conn = None
         self.error_channel = None
@@ -65,7 +66,7 @@ class TunnelConn:
             return socket.create_connection(remote_addr)
 
     def connect_local(self):
-        local_addr = ('localhost', self.local_port)
+        local_addr = (self.local_host, self.local_port)
         return socket.create_connection(local_addr)
 
     def copy_data(self, source, destination):
@@ -89,6 +90,7 @@ class TunnelConn:
 class Tunnel:
     def __init__(self):
         self.assigned_url_info = None
+        self.local_host = None
         self.local_port = None
         self.tunnel_conns = []
         self.cmd_chan = queue.Queue()
@@ -98,7 +100,7 @@ class Tunnel:
         reply_ch = queue.Queue(maxsize=self.assigned_url_info.max_conn_count)
         remote_host = urlsplit(LOCAL_TUNNEL_SERVER).netloc
         for _ in range(self.assigned_url_info.max_conn_count):
-            tunnel_conn = TunnelConn(remote_host, self.assigned_url_info.port, self.local_port)
+            tunnel_conn = TunnelConn(remote_host, self.assigned_url_info.port, self.local_port, self.local_host)
             self.tunnel_conns.append(tunnel_conn)
             thread = threading.Thread(target=tunnel_conn.tunnel, args=(reply_ch,))
             thread.start()
@@ -123,13 +125,14 @@ class Tunnel:
         self.tunnel_conns = []
         return self.assigned_url_info.url
 
-    def create_tunnel(self, local_port: int) -> None:
+    def create_tunnel(self, local_port: int, local_host: str = 'localhost') -> None:
         self.local_port = local_port
+        self.local_host = local_host
         self.start_tunnel()
     
     def check_local_port(self):
         try:
-            with socket.create_connection(('localhost', self.local_port)) as sock:
+            with socket.create_connection((self.local_host, self.local_port)) as sock:
                 pass
         except ConnectionRefusedError:
             sys.stderr.write(' Error: Cannot connect to local port\n')

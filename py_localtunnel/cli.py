@@ -15,13 +15,14 @@ def main(argv = None):
     port_parser = subparsers.add_parser('port', help="Internal HTTP server port")
     port_parser.add_argument('port', type=int, help="Internal HTTP server port")
     port_parser.add_argument('-s', '--subdomain', type=str, default="", help="Request this subdomain")
+    port_parser.add_argument('-lh', '--local-host', type=str, default="localhost", help="Proxy to this hostname instead of `localhost`")
 
     parser.add_argument('-v',"--version", action="store_true", dest="version", help="check version of deb")
 
     args = parser.parse_args(argv)
 
     if args.command == "port":
-        run_localtunnel(args.port, args.subdomain)
+        run_localtunnel(args.port, args.subdomain, args.local_host)
     elif args.version:
         return print(__version__)
     else:
