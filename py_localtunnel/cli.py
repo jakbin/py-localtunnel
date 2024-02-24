@@ -1,7 +1,7 @@
 import argparse
 from py_localtunnel.lt import run_localtunnel
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 package_name = "pylt"
 
 example_uses = '''example:
